@@ -5,8 +5,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        kr: ['Noto Sans KR', 'sans-serif'],
+      },
       colors: {
-        cafe: {
+        coffee: {
           100: '#FFDF91',
           200: '#EAAC7F',
           300: '#91684A',

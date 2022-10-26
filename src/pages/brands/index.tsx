@@ -1,5 +1,11 @@
+import Navbar from '../../components/Navbar';
+
 const Brands: React.FC = () => {
-  return <div></div>;
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 };
 
 export default Brands;

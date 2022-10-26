@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar';
 
@@ -14,6 +15,16 @@ const Home: NextPage = () => {
       <Navbar />
       <main className="py-8 px-12">
         <div className="flex flex-col items-center space-y-10">
+          <div className="w-60">
+            <Image
+              alt="logo"
+              src="https://gifty-bucket.s3.ap-northeast-2.amazonaws.com/images/logo.png"
+              layout="responsive"
+              width={100}
+              height={50}
+              className="rounded-2xl"
+            />
+          </div>
           <h1 className="text-2xl text-coffee-400 font-bold">
             기프티콘으로 결제할 때,
             <br />더 이상 머뭇거리지 마세요!

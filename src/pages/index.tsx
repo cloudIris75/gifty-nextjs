@@ -22,7 +22,7 @@ const Home: NextPage = () => {
               layout="responsive"
               width={100}
               height={50}
-              className="rounded-2xl"
+              className="rounded-3xl"
             />
           </div>
           <h1 className="text-2xl text-coffee-400 font-bold">

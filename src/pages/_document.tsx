@@ -10,6 +10,11 @@ function MyDocument() {
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="icon"
+          href="https://gifty-bucket.s3.ap-northeast-2.amazonaws.com/favicon/favicon_created_by_logaster.ico"
+        />
+        <title>GIFTY</title>
       </Head>
       <body>
         <Main />

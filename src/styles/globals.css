@@ -9,3 +9,9 @@
 html {
   @apply h-screen bg-coffee-200;
 }
+
+@layer components {
+  .brand-container {
+    @apply flex w-72 h-20 bg-coffee-400 rounded-3xl text-center justify-center items-center;
+  }
+}

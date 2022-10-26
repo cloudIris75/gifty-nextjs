@@ -1,5 +1,12 @@
+import Navbar from '../../../components/Navbar';
+
 const Calculator: React.FC = () => {
-  return <div></div>;
+  return (
+    <>
+      <Navbar />
+      <main></main>
+    </>
+  );
 };
 
 export default Calculator;

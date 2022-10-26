@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Navbar />
-      <main className="py-8 px-12">
+      <main className="py-8 px-12 sm:px-48">
         <div className="flex flex-col items-center space-y-10">
           <div className="w-60">
             <Image
@@ -26,10 +26,10 @@ const Home: NextPage = () => {
             />
           </div>
           <h1 className="text-2xl text-coffee-400 font-bold">
-            기프티콘으로 결제할 때,
-            <br />더 이상 머뭇거리지 마세요!
+            기프티콘으로 결제할 때, <br className="md:hidden" />더 이상
+            머뭇거리지 마세요!
           </h1>
-          <p>
+          <p className="bg-coffee-100 text-coffee-400 rounded-3xl px-6 py-8">
             계산대 앞에서 우물쭈물하느라 뒷사람 눈치 보는 건 이제 그만! 원하는
             메뉴 구성으로 쉽고 빠르게 계산하여 기프티콘을 사용할 수 있습니다.
             (문구 수정 예정)

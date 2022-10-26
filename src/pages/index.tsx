@@ -19,8 +19,8 @@ const Home: NextPage = () => {
             기프티콘으로 결제할 때, <br className="lg:hidden" />더 이상
             머뭇거리지 마세요!
           </h1>
-          <div className="flex flex-col items-center space-y-10 bg-white rounded-3xl px-6 py-8 w-64 sm:w-1/2 lg:w-1/3">
-            <div className="w-60">
+          <div className="flex flex-col items-center space-y-8 bg-white border-2 border-coffee-400 rounded-3xl px-6 py-8 w-64 sm:w-1/2 lg:w-1/3">
+            <div className="w-52">
               <Image
                 alt="logo"
                 src="https://gifty-bucket.s3.ap-northeast-2.amazonaws.com/images/logo.png"

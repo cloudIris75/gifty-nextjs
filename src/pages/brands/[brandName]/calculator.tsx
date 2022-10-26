@@ -6,6 +6,8 @@ const Calculator: React.FC = () => {
   const router = useRouter();
   const brandName = router.query.brandName as string;
 
+  const onResetButtonClick = () => {};
+
   return (
     <>
       <Navbar />
@@ -38,7 +40,7 @@ const Calculator: React.FC = () => {
             onclick={() => router.push(`/brands/${brandName}/menu`)}
             width="w-60"
           />
-          <Button name="초기화하기" width="w-60" />
+          <Button name="초기화하기" onclick={onResetButtonClick} width="w-60" />
         </div>
       </main>
     </>

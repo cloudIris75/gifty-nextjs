@@ -1,6 +1,11 @@
+import { useRouter } from 'next/router';
+import Button from '../../../components/Button';
 import Navbar from '../../../components/Navbar';
 
 const Calculator: React.FC = () => {
+  const router = useRouter();
+  const brandName = router.query.brandName as string;
+
   return (
     <>
       <Navbar />
@@ -27,7 +32,14 @@ const Calculator: React.FC = () => {
           <p>기프티콘 가격보다 n원 부족해요!</p>
           <p>n원어치 추가 선택해 주세요.</p>
         </div>
-        <div></div>
+        <div className="flex flex-col space-y-4">
+          <Button
+            name="추가할 수 있는 메뉴 보러가기"
+            onclick={() => router.push(`/brands/${brandName}/menu`)}
+            width="w-60"
+          />
+          <Button name="초기화하기" width="w-60" />
+        </div>
       </main>
     </>
   );

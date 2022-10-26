@@ -1,14 +1,11 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Button from '../components/Button';
 import Navbar from '../components/Navbar';
 
 const Home: NextPage = () => {
   const router = useRouter();
-
-  const onMoveButtonClick = () => {
-    router.push('/brands');
-  };
 
   return (
     <>
@@ -35,12 +32,10 @@ const Home: NextPage = () => {
               (문구 수정 예정)
             </p>
           </div>
-          <button
-            onClick={onMoveButtonClick}
-            className="bg-coffee-400 px-6 py-2 rounded-3xl"
-          >
-            지금 계산하러 가기
-          </button>
+          <Button
+            name="지금 계산하러 가기"
+            onclick={() => router.push('/brands')}
+          />
         </div>
       </main>
     </>

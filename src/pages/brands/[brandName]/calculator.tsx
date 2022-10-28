@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Button from '../../../components/Button';
+import Container from '../../../components/Container';
 import Navbar from '../../../components/Navbar';
 
 const Calculator: React.FC = () => {
@@ -11,13 +12,14 @@ const Calculator: React.FC = () => {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col items-center m-8 space-y-8">
-        <div className="flex flex-col space-y-8 px-4 py-6 bg-white w-full">
+      <main className="flex flex-col items-center mx-8 my-4 pb-8 space-y-8">
+        <div className="flex flex-col space-y-8 px-4 py-6 bg-white w-full sm:w-2/3 md:w-1/2 lg:w-1/4">
           <h3 className="text-coffee-400 text-center font-bold text-xl">
             GIFTY
           </h3>
           <div>
             <h3 className="title-container">기프티콘</h3>
+            <Container />
           </div>
           <div className="flex flex-col space-y-2 items-center w-full">
             <hr className="border-dashed border-coffee-400 w-full" />
@@ -27,12 +29,15 @@ const Calculator: React.FC = () => {
           </div>
           <div>
             <h3 className="title-container">메뉴 1</h3>
+            <Container />
           </div>
           <div>
             <h3 className="title-container">메뉴 2</h3>
+            <Container />
           </div>
           <div>
             <h3 className="title-container">메뉴 3</h3>
+            <Container />
           </div>
           <div className="flex flex-col w-full text-right">
             <hr className="border-dashed border-coffee-400 w-full mb-2" />

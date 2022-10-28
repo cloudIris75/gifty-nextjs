@@ -15,6 +15,6 @@ html {
     @apply flex w-72 h-20 bg-coffee-400 rounded-3xl text-center justify-center items-center;
   }
   .title-container {
-    @apply text-center bg-coffee-300 rounded-3xl w-28 py-1;
+    @apply text-center bg-coffee-300 rounded-3xl w-24 py-1;
   }
 }

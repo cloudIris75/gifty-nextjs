@@ -17,4 +17,7 @@ html {
   .title-container {
     @apply text-center bg-coffee-300 rounded-3xl w-24 py-1;
   }
+  .dashed-line {
+    @apply border-t border-dashed border-coffee-400 pt-6;
+  }
 }

@@ -27,8 +27,16 @@ const Calculator: React.FC = () => {
           </div>
           <div className="flex flex-col space-y-4 dashed-line">
             <div className="flex justify-end space-x-2">
-              <Button name="-" onclick={onSubtractButtonClick} width="w-10" />
-              <Button name="+" onclick={onAddButtonClick} width="w-10" />
+              <Button
+                name="-"
+                onclick={onSubtractButtonClick}
+                classname="w-10 py-2"
+              />
+              <Button
+                name="+"
+                onclick={onAddButtonClick}
+                classname="w-10 py-2"
+              />
             </div>
             <div>
               <h3 className="title-container">메뉴 1</h3>
@@ -36,10 +44,6 @@ const Calculator: React.FC = () => {
             </div>
             <div>
               <h3 className="title-container">메뉴 2</h3>
-              <Container />
-            </div>
-            <div>
-              <h3 className="title-container">메뉴 3</h3>
               <Container />
             </div>
           </div>
@@ -60,9 +64,13 @@ const Calculator: React.FC = () => {
           <Button
             name="추가할 수 있는 메뉴 보러가기"
             onclick={() => router.push(`/brands/${brandName}/menu`)}
-            width="w-60"
+            classname="w-60 py-2"
           />
-          <Button name="초기화하기" onclick={onResetButtonClick} width="w-60" />
+          <Button
+            name="초기화하기"
+            onclick={onResetButtonClick}
+            classname="w-60 py-2"
+          />
         </div>
       </main>
     </>

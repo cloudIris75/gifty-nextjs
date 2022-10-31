@@ -21,42 +21,35 @@ const Calculator: React.FC = () => {
           <h3 className="text-coffee-400 text-center font-bold text-xl">
             GIFTY
           </h3>
-          <div>
-            <h3 className="title-container">기프티콘</h3>
-            <Container type="gifticon" />
-          </div>
-          <div className="flex flex-col space-y-4 dashed-line">
+          <Container type="gifticon" />
+          <div className="flex flex-col space-y-6 dashed-line">
             <div className="flex justify-end space-x-2">
               <Button
-                name="-"
+                name="삭제"
                 onclick={onSubtractButtonClick}
-                classname="w-10 py-2"
+                classname="text-sm w-12 py-1"
               />
               <Button
-                name="+"
+                name="추가"
                 onclick={onAddButtonClick}
-                classname="w-10 py-2"
+                classname="text-sm w-12 py-1"
               />
             </div>
-            <div>
-              <h3 className="title-container">메뉴 1</h3>
+            <div className="flex flex-col space-y-8">
               <Container />
-            </div>
-            <div>
-              <h3 className="title-container">메뉴 2</h3>
               <Container />
             </div>
           </div>
           <div className="flex flex-col w-full text-right dashed-line">
             <div className="flex justify-between font-bold text-lg mb-2">
               <p className="text-coffee-400">결제금액</p>
-              <p className="text-coffee-400">n원</p>
+              <p className="text-coffee-400">n0,000원</p>
             </div>
             <p className="text-coffee-400 text-sm">
-              기프티콘 가격보다 n원 부족해요!
+              기프티콘 가격보다 n00원 부족해요!
             </p>
             <p className="text-coffee-400 text-sm">
-              n원어치 추가 선택해 주세요.
+              n00원어치 추가 선택해 주세요.
             </p>
           </div>
         </div>

@@ -15,7 +15,7 @@ html {
     @apply flex w-72 h-20 bg-coffee-400 rounded-3xl text-center justify-center items-center;
   }
   .title-container {
-    @apply text-center bg-coffee-300 rounded-3xl w-24 py-1;
+    @apply text-center text-sm bg-coffee-300 rounded-3xl w-20 py-1;
   }
   .dashed-line {
     @apply border-t border-dashed border-coffee-400 pt-6;

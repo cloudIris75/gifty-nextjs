@@ -19,7 +19,7 @@ const Calculator: React.FC = () => {
           </h3>
           <div>
             <h3 className="title-container">기프티콘</h3>
-            <Container />
+            <Container type="gifticon" />
           </div>
           <div className="flex flex-col space-y-4 dashed-line">
             <div>

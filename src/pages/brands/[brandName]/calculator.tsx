@@ -7,6 +7,10 @@ const Calculator: React.FC = () => {
   const router = useRouter();
   const brandName = router.query.brandName as string;
 
+  const onSubtractButtonClick = () => {};
+
+  const onAddButtonClick = () => {};
+
   const onResetButtonClick = () => {};
 
   return (
@@ -22,6 +26,10 @@ const Calculator: React.FC = () => {
             <Container type="gifticon" />
           </div>
           <div className="flex flex-col space-y-4 dashed-line">
+            <div className="flex justify-end space-x-2">
+              <Button name="-" onclick={onSubtractButtonClick} width="w-10" />
+              <Button name="+" onclick={onAddButtonClick} width="w-10" />
+            </div>
             <div>
               <h3 className="title-container">메뉴 1</h3>
               <Container />

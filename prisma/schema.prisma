@@ -10,7 +10,6 @@ datasource db {
 model Brand {
   id        Int     @id @default(autoincrement())
   name      String  @db.VarChar(12)
-  imgPath   String  @db.VarChar(255)
   gifticons Gifticon[]
   menus     Menu[]
 }

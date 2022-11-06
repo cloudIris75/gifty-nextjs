@@ -44,7 +44,7 @@ const Container: React.FC<ContainerProps> = ({ type = 'menu' }) => {
         </select>
       </div>
       <div className="flex justify-between px-2 pt-4">
-        <div className="border border-coffee-400 w-16 h-16 rounded-full"> </div>
+        <div className="border border-coffee-400 w-16 h-16"> </div>
         <div className="flex flex-col items-end justify-between w-1/2">
           <div className="text-coffee-400 font-bold">menu name</div>
           <div

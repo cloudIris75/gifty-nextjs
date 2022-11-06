@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Button from '../../../components/Button';
+import MenuContainer from '../../../components/Container/MenuContainer';
 import Navbar from '../../../components/Navbar';
 import { Brand, BrandName } from '../../../lib/types/enums';
 
@@ -18,7 +19,7 @@ const Menu: React.FC = () => {
             id="category"
             required
             defaultValue="category"
-            className="bg-coffee-100"
+            className="select"
           >
             <option value="category" disabled>
               카테고리
@@ -32,7 +33,7 @@ const Menu: React.FC = () => {
             id="sort"
             required
             defaultValue="sort"
-            className="bg-coffee-100"
+            className="select"
           >
             <option value="sort" disabled>
               정렬
@@ -42,7 +43,9 @@ const Menu: React.FC = () => {
             <option value="ascending">가격낮은순</option>
           </select>
         </div>
-        <div></div>
+        <div>
+          <MenuContainer />
+        </div>
         <Button
           onclick={() => router.push(`/brands/${brandName}/calculator`)}
           name="계산기로 돌아가기"

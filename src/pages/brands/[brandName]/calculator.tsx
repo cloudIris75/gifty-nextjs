@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Button from '../../../components/Button';
-import Container from '../../../components/Container';
+import CalculatorContainer from '../../../components/Container/CalculatorContainer';
 import Navbar from '../../../components/Navbar';
 
 const Calculator: React.FC = () => {
@@ -21,7 +21,7 @@ const Calculator: React.FC = () => {
           <h3 className="text-coffee-400 text-center font-bold text-xl">
             GIFTY
           </h3>
-          <Container type="gifticon" />
+          <CalculatorContainer type="gifticon" />
           <div className="flex flex-col space-y-6 dashed-line">
             <div className="flex justify-end space-x-2">
               <Button
@@ -36,8 +36,7 @@ const Calculator: React.FC = () => {
               />
             </div>
             <div className="flex flex-col space-y-8">
-              <Container />
-              <Container />
+              <CalculatorContainer />
             </div>
           </div>
           <div className="flex flex-col w-full text-right dashed-line">

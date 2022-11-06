@@ -1,10 +1,12 @@
-import Button from '../Button';
+import Button from '../../Button';
 
-interface ContainerProps {
+interface CalculatorContainerProps {
   type?: 'gifticon' | 'menu';
 }
 
-const Container: React.FC<ContainerProps> = ({ type = 'menu' }) => {
+const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
+  type = 'menu',
+}) => {
   const onSubtractButtonClick = () => {};
 
   const onAddButtonClick = () => {};
@@ -18,7 +20,7 @@ const Container: React.FC<ContainerProps> = ({ type = 'menu' }) => {
             id="category"
             required
             defaultValue="category"
-            className="bg-coffee-100"
+            className="select"
           >
             <option value="category" disabled>
               카테고리
@@ -35,7 +37,7 @@ const Container: React.FC<ContainerProps> = ({ type = 'menu' }) => {
           id="name"
           required
           defaultValue="name"
-          className="bg-coffee-100"
+          className="select"
         >
           <option value="name" disabled>
             {type === 'menu' ? '메뉴명' : '기프티콘명'}
@@ -69,4 +71,4 @@ const Container: React.FC<ContainerProps> = ({ type = 'menu' }) => {
   );
 };
 
-export default Container;
+export default CalculatorContainer;

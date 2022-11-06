@@ -17,7 +17,7 @@ const Calculator: React.FC = () => {
     <>
       <Navbar />
       <main className="flex flex-col items-center mx-8 my-4 pb-8 space-y-8">
-        <div className="flex flex-col space-y-6 px-4 py-6 bg-white w-full sm:w-2/3 md:w-1/2 lg:w-1/4">
+        <div className="flex flex-col space-y-6 px-4 py-6 bg-white w-full sm:w-2/3 md:w-1/2 lg:w-1/4 shadow-md">
           <h3 className="text-coffee-400 text-center font-bold text-xl">
             GIFTY
           </h3>

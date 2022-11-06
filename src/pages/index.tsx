@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       <Navbar />
       <main className="py-8">
         <div className="flex flex-col items-center space-y-10">
-          <h1 className="text-2xl text-coffee-400 font-bold">
+          <h1 className="title">
             기프티콘으로 결제할 때, <br className="lg:hidden" />더 이상
             머뭇거리지 마세요!
           </h1>

@@ -8,28 +8,27 @@ datasource db {
 }
 
 model Brand {
-  id        Int     @id @default(autoincrement())
-  name      String  @db.VarChar(12)
+  id        Int        @id @default(autoincrement())
+  name      String     @db.VarChar(12)
   gifticons Gifticon[]
   menus     Menu[]
 }
 
 model Gifticon {
-  id        Int     @id @default(autoincrement())
-  name      String  @db.VarChar(80)
-  brandId   Int
-  brand     Brand   @relation(fields: [brandId], references: [id], onDelete: Cascade)
-  category  String  @db.VarChar(12)
-  imgPath   String  @db.VarChar(255)
-  price     Int
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(80)
+  brandId  Int
+  imgPath  String @db.VarChar(255)
+  price    Int
+  brand    Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
 }
 
 model Menu {
-  id        Int     @id @default(autoincrement())
-  name      String  @db.VarChar(80)
-  brandId   Int
-  brand     Brand   @relation(fields: [brandId], references: [id], onDelete: Cascade)
-  category  String  @db.VarChar(12)
-  imgPath   String  @db.VarChar(255)
-  price     Int
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(80)
+  brandId  Int
+  category String @db.VarChar(12)
+  imgPath  String @db.VarChar(255)
+  price    Int
+  brand    Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
 }

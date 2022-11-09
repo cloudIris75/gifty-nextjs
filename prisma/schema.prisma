@@ -18,7 +18,7 @@ model Gifticon {
   id       Int    @id @default(autoincrement())
   name     String @db.VarChar(80)
   brandId  Int
-  imgPath  String @db.VarChar(255)
+  imgPath  String? @db.VarChar(255)
   price    Int
   brand    Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
 }
@@ -28,7 +28,7 @@ model Menu {
   name     String @db.VarChar(80)
   brandId  Int
   category String @db.VarChar(12)
-  imgPath  String @db.VarChar(255)
+  imgPath  String? @db.VarChar(255)
   price    Int
   brand    Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
 }

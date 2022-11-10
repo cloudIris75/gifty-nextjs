@@ -1,3 +1,4 @@
+import useSWR from 'swr';
 import Button from '../../Button';
 
 interface CalculatorContainerProps {
@@ -7,6 +8,9 @@ interface CalculatorContainerProps {
 const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
   type = 'menu',
 }) => {
+  const { data: gifticonData } = useSWR('/api/gifticons');
+  const { data: menuData } = useSWR('/api/menus');
+
   const onSubtractButtonClick = () => {};
 
   const onAddButtonClick = () => {};

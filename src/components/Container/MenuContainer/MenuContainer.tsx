@@ -12,8 +12,8 @@ const MenuContainer: React.FC<MenuContainerProps> = ({
   return (
     <div className="flex flex-col items-center">
       <div className="border border-coffee-400 w-16 h-16"> </div>
-      <div className="text-coffee-400 font-bold">menu name</div>
-      <div className="text-coffee-400">n,000원</div>
+      <div className="text-coffee-400 font-bold">{name}</div>
+      <div className="text-coffee-400">{price}원</div>
     </div>
   );
 };

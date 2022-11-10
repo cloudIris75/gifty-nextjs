@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import withHandler, { ResponseType } from '../../lib/server/withHandler';
+import client from '../../lib/server/client';
 
 async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
-  const brands = await client?.brand.findMany();
+  const brands = await client.brand.findMany();
   res.json({
     ok: true,
     brands,

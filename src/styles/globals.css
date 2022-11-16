@@ -15,7 +15,7 @@ html {
     @apply text-2xl text-coffee-400 font-bold;
   }
   .select {
-    @apply bg-coffee-100 w-20;
+    @apply bg-coffee-100 w-1/2;
   }
   .brand-container {
     @apply flex w-72 h-20 bg-coffee-400 rounded-3xl text-center justify-center items-center;

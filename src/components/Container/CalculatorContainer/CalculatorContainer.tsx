@@ -20,10 +20,14 @@ interface MenuResponse {
 const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
   type = 'menu',
 }) => {
-  const [gifticon, setGifticon] = useState<Gifticon>();
-  const [menu, setMenu] = useState<Menu>();
-  const { data: gifticonData } = useSWR<GifticonResponse>('/api/gifticons');
-  const { data: menuData } = useSWR<MenuResponse>('/api/menus');
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const [gifticon, setGifticon] = useState('');
+  const [menu, setMenu] = useState('');
+  const { data: gifticonData } = useSWR<GifticonResponse>(
+    '/api/gifticons',
+    fetcher
+  );
+  const { data: menuData } = useSWR<MenuResponse>('/api/menus', fetcher);
 
   const onSubtractButtonClick = () => {};
 
@@ -38,7 +42,7 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
             id="category"
             required
             defaultValue="category"
-            className="select"
+            className="select w-20"
           >
             <option value="category" disabled>
               카테고리
@@ -56,26 +60,23 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
           required
           defaultValue="name"
           className="select"
+          onChange={(e) => {
+            type === 'menu'
+              ? setMenu(e.currentTarget.value)
+              : setGifticon(e.currentTarget.value);
+          }}
         >
           <option value="name" disabled>
             {type === 'menu' ? '메뉴' : '기프티콘'}
           </option>
           {type === 'menu'
             ? menuData?.menus.map((menu) => (
-                <option
-                  key={menu.id}
-                  value={menu.name}
-                  onSelect={() => setMenu(menu)}
-                >
+                <option key={menu.id} value={menu.name}>
                   {menu.name}
                 </option>
               ))
             : gifticonData?.gifticons.map((gifticon) => (
-                <option
-                  key={gifticon.id}
-                  value={gifticon.name}
-                  onSelect={() => setGifticon(gifticon)}
-                >
+                <option key={gifticon.id} value={gifticon.name}>
                   {gifticon.name}
                 </option>
               ))}
@@ -84,13 +85,12 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
       {menu || gifticon ? (
         <div className="flex justify-between px-2 pt-4">
           <div className="border border-coffee-400 w-16 h-16"> </div>
-
-          <div className="flex flex-col items-end justify-between w-1/2">
+          <div className="flex flex-col items-end justify-between w-3/4">
             <div className="text-coffee-400 font-bold">
-              {type === 'menu' ? menu?.name : gifticon?.name}
+              {type === 'menu' ? menu : gifticon}
             </div>
             <div
-              className={`flex w-full ${
+              className={`flex w-1/2 ${
                 type === 'menu' ? 'justify-between' : 'justify-end'
               }`}
             >
@@ -105,9 +105,7 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
                 <div className="text-coffee-400">1</div>
                 <Button name="+" onclick={onAddButtonClick} classname="px-2" />
               </div>
-              <div className="text-coffee-400">
-                {type === 'menu' ? menu?.price : gifticon?.price}원
-              </div>
+              <div className="text-coffee-400">n,000원</div>
             </div>
           </div>
         </div>

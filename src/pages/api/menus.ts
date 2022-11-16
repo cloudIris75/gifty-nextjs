@@ -6,7 +6,7 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
-  const menus = await client.gifticon.findMany();
+  const menus = await client.menu.findMany();
   res.json({
     ok: true,
     menus,

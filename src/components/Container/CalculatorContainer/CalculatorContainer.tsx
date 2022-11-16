@@ -1,5 +1,5 @@
 import { Gifticon, Menu } from '@prisma/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import Button from '../../Button';
 
@@ -21,13 +21,31 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
   type = 'menu',
 }) => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const [gifticon, setGifticon] = useState('');
-  const [menu, setMenu] = useState('');
+  const [gifticonName, setGifticonName] = useState('');
+  const [menuName, setMenuName] = useState('');
+  const [gifticon, setGifticon] = useState<Gifticon>();
+  const [menu, setMenu] = useState<Menu>();
   const { data: gifticonData } = useSWR<GifticonResponse>(
     '/api/gifticons',
     fetcher
   );
   const { data: menuData } = useSWR<MenuResponse>('/api/menus', fetcher);
+
+  useEffect(() => {
+    if (gifticonData && gifticonName) {
+      const selectedGifticon = gifticonData.gifticons.find(
+        (e) => e.name === gifticonName
+      );
+      setGifticon(selectedGifticon);
+    }
+  }, [gifticonData, gifticonName, setGifticon]);
+
+  useEffect(() => {
+    if (menuData && menuName) {
+      const selectedMenu = menuData.menus.find((e) => e.name === menuName);
+      setMenu(selectedMenu);
+    }
+  }, [menuData, menuName, setMenu]);
 
   const onSubtractButtonClick = () => {};
 
@@ -62,8 +80,8 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
           className="select"
           onChange={(e) => {
             type === 'menu'
-              ? setMenu(e.currentTarget.value)
-              : setGifticon(e.currentTarget.value);
+              ? setMenuName(e.currentTarget.value)
+              : setGifticonName(e.currentTarget.value);
           }}
         >
           <option value="name" disabled>
@@ -82,15 +100,15 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
               ))}
         </select>
       </div>
-      {menu || gifticon ? (
+      {(type === 'menu' ? menu : gifticon) ? (
         <div className="flex justify-between px-2 pt-4">
           <div className="border border-coffee-400 w-16 h-16"> </div>
-          <div className="flex flex-col items-end justify-between w-3/4">
+          <div className="flex flex-col items-end justify-between w-3/4 space-y-2">
             <div className="text-coffee-400 font-bold">
-              {type === 'menu' ? menu : gifticon}
+              {type === 'menu' ? menu?.name : gifticon?.name}
             </div>
             <div
-              className={`flex w-1/2 ${
+              className={`flex w-3/5 ${
                 type === 'menu' ? 'justify-between' : 'justify-end'
               }`}
             >
@@ -105,7 +123,12 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
                 <div className="text-coffee-400">1</div>
                 <Button name="+" onclick={onAddButtonClick} classname="px-2" />
               </div>
-              <div className="text-coffee-400">n,000원</div>
+              <div className="text-coffee-400">
+                {type === 'menu'
+                  ? menu?.price.toLocaleString()
+                  : gifticon?.price.toLocaleString()}
+                원
+              </div>
             </div>
           </div>
         </div>

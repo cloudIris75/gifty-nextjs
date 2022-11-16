@@ -10,10 +10,10 @@ const MenuContainer: React.FC<MenuContainerProps> = ({
   price,
 }) => {
   return (
-    <div className="flex flex-col items-center">
-      <div className="border border-coffee-400 w-16 h-16"> </div>
+    <div className="flex flex-col items-center w-48 py-4 space-y-2">
+      <div className="border border-coffee-400 w-20 h-20"> </div>
       <div className="text-coffee-400 font-bold">{name}</div>
-      <div className="text-coffee-400">{price}원</div>
+      <div className="text-coffee-400">{price?.toLocaleString()}원</div>
     </div>
   );
 };

@@ -1,12 +1,21 @@
+import { Menu } from '@prisma/client';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
 import Button from '../../../components/Button';
 import MenuContainer from '../../../components/Container/MenuContainer';
 import Navbar from '../../../components/Navbar';
 import { Brand, BrandName } from '../../../lib/types/enums';
 
+interface MenuResponse {
+  ok: boolean;
+  menus: Menu[];
+}
+
 const Menu: React.FC = () => {
   const router = useRouter();
   const brandName = router.query.brandName as Brand;
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const { data: menuData } = useSWR<MenuResponse>('/api/menus', fetcher);
 
   return (
     <>
@@ -43,8 +52,16 @@ const Menu: React.FC = () => {
             <option value="ascending">가격낮은순</option>
           </select>
         </div>
-        <div>
-          <MenuContainer />
+        <div className="flex justify-center space-x-2 flex-wrap px-8">
+          {menuData
+            ? menuData.menus.map((menu) => (
+                <MenuContainer
+                  key={menu.id}
+                  name={menu.name}
+                  price={menu.price}
+                />
+              ))
+            : ''}
         </div>
         <Button
           onclick={() => router.push(`/brands/${brandName}/calculator`)}

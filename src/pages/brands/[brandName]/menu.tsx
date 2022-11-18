@@ -24,7 +24,7 @@ const Menu: React.FC = () => {
       <main className="flex flex-col items-center mx-8 my-4 pb-8 space-y-8">
         <h1 className="title">{BrandName.get(brandName)}</h1>
         <MenuSelect page="menu" />
-        <div className="flex justify-center space-x-2 flex-wrap px-8">
+        <div className="flex justify-center flex-wrap px-2 lg:px-52">
           {menuData
             ? menuData.menus.map((menu) => (
                 <MenuContainer

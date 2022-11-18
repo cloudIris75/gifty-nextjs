@@ -18,8 +18,8 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
   const onAddButtonClick = () => {};
 
   return (
-    <div className="flex justify-between px-2 pt-4">
-      <div className="border border-coffee-400 w-16 h-16">
+    <div className="flex justify-between px-2 pt-4 space-x-4">
+      <div className="flex items-center justify-center border border-coffee-400 w-16 h-16">
         <Image
           src={(type === 'menu' ? menu?.imgPath : gifticon?.imgPath) || ''}
           alt={type === 'menu' ? menu?.name : gifticon?.name}
@@ -32,7 +32,7 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
           {type === 'menu' ? menu?.name : gifticon?.name}
         </div>
         <div
-          className={`flex w-3/5 ${
+          className={`flex w-4/5 sm:w-3/5 ${
             type === 'menu' ? 'justify-between' : 'justify-end'
           }`}
         >

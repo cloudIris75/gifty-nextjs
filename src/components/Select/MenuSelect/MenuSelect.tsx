@@ -1,5 +1,11 @@
 import { Gifticon, Menu } from '@prisma/client';
-import { Dispatch, SetStateAction } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 
 interface MenuResponse {
   ok: boolean;
@@ -28,6 +34,51 @@ const MenuSelect: React.FC<MenuSelectProps> = ({
   menuData,
   gifticonData,
 }) => {
+  const [menus, setMenus] = useState<Menu[]>();
+  const [gifticons, setGifticons] = useState<Gifticon[]>();
+
+  const ascendingName = (a: Menu | Gifticon, b: Menu | Gifticon) => {
+    if (a.name > b.name) {
+      return 1;
+    } else if (a.name < b.name) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+
+  useEffect(() => {
+    if (type === 'menu' && menuData) {
+      const sortedMenu = menuData.menus.sort((a, b) => ascendingName(a, b));
+      setMenus(sortedMenu);
+    } else if (type === 'gifticon' && gifticonData) {
+      const sortedGifticon = gifticonData.gifticons.sort((a, b) =>
+        ascendingName(a, b)
+      );
+      setGifticons(sortedGifticon);
+    }
+  }, [type, menuData, setMenus, gifticonData, setGifticons]);
+
+  const onCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    if (menuData) {
+      const target = e.currentTarget.value;
+      if (target === 'drink') {
+        const drinkMenu = menuData.menus
+          .filter((menu) => menu.category === '음료')
+          .sort((a, b) => ascendingName(a, b));
+        setMenus(drinkMenu);
+      } else if (target === 'food') {
+        const foodMenu = menuData.menus
+          .filter((menu) => menu.category === '푸드')
+          .sort((a, b) => ascendingName(a, b));
+        setMenus(foodMenu);
+      } else {
+        const allMenu = menuData.menus.sort((a, b) => ascendingName(a, b));
+        setMenus(allMenu);
+      }
+    }
+  };
+
   return (
     <div className="flex items-center justify-end text-coffee-400 space-x-4">
       {type === 'menu' ? (
@@ -37,9 +88,10 @@ const MenuSelect: React.FC<MenuSelectProps> = ({
           required
           defaultValue="category"
           className="select w-20"
+          onChange={onCategoryChange}
         >
           <option value="all">전체</option>
-          <option value="drinks">음료</option>
+          <option value="drink">음료</option>
           <option value="food">푸드</option>
           {/* <option value="MD">MD</option> */}
         </select>
@@ -63,12 +115,12 @@ const MenuSelect: React.FC<MenuSelectProps> = ({
             {type === 'menu' ? '메뉴' : '기프티콘'}
           </option>
           {type === 'menu'
-            ? menuData?.menus.map((menu) => (
+            ? menus?.map((menu) => (
                 <option key={menu.id} value={menu.name}>
                   {menu.name}
                 </option>
               ))
-            : gifticonData?.gifticons.map((gifticon) => (
+            : gifticons?.map((gifticon) => (
                 <option key={gifticon.id} value={gifticon.name}>
                   {gifticon.name}
                 </option>

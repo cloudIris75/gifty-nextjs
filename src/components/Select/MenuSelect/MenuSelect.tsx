@@ -38,9 +38,7 @@ const MenuSelect: React.FC<MenuSelectProps> = ({
           defaultValue="category"
           className="select w-20"
         >
-          <option value="category" disabled>
-            카테고리
-          </option>
+          <option value="all">전체</option>
           <option value="drinks">음료</option>
           <option value="food">푸드</option>
           {/* <option value="MD">MD</option> */}

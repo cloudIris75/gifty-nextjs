@@ -1,11 +1,51 @@
+import { Gifticon, Menu } from '@prisma/client';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import Button from '../../../components/Button';
+import CalculatorContainer from '../../../components/Container/CalculatorContainer';
 import Navbar from '../../../components/Navbar';
 import MenuSelect from '../../../components/Select/MenuSelect';
+
+interface GifticonResponse {
+  ok: boolean;
+  gifticons: Gifticon[];
+}
+
+interface MenuResponse {
+  ok: boolean;
+  menus: Menu[];
+}
 
 const Calculator: React.FC = () => {
   const router = useRouter();
   const brandName = router.query.brandName as string;
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const [gifticonName, setGifticonName] = useState('');
+  const [menuName, setMenuName] = useState('');
+  const [gifticon, setGifticon] = useState<Gifticon>();
+  const [menu, setMenu] = useState<Menu>();
+  const { data: gifticonData } = useSWR<GifticonResponse>(
+    '/api/gifticons',
+    fetcher
+  );
+  const { data: menuData } = useSWR<MenuResponse>('/api/menus', fetcher);
+
+  useEffect(() => {
+    if (gifticonData && gifticonName) {
+      const selectedGifticon = gifticonData.gifticons.find(
+        (e) => e.name === gifticonName
+      );
+      setGifticon(selectedGifticon);
+    }
+  }, [gifticonData, gifticonName, setGifticon]);
+
+  useEffect(() => {
+    if (menuData && menuName) {
+      const selectedMenu = menuData.menus.find((e) => e.name === menuName);
+      setMenu(selectedMenu);
+    }
+  }, [menuData, menuName, setMenu]);
 
   const onSubtractButtonClick = () => {};
 
@@ -21,7 +61,18 @@ const Calculator: React.FC = () => {
           <h3 className="text-coffee-400 text-center font-bold text-xl">
             GIFTY
           </h3>
-          <MenuSelect type="gifticon" />
+          <div className="flex flex-col items-between justify-center">
+            <MenuSelect
+              type="gifticon"
+              setGifticonName={setGifticonName}
+              gifticonData={gifticonData}
+            />
+            {gifticon ? (
+              <CalculatorContainer type="gifticon" gifticon={gifticon} />
+            ) : (
+              ''
+            )}
+          </div>
           <div className="flex flex-col space-y-6 dashed-line">
             <div className="flex justify-end space-x-2">
               <Button
@@ -36,7 +87,10 @@ const Calculator: React.FC = () => {
               />
             </div>
             <div className="flex flex-col space-y-8">
-              <MenuSelect />
+              <div className="flex flex-col items-between justify-center">
+                <MenuSelect setMenuName={setMenuName} menuData={menuData} />
+                {menu ? <CalculatorContainer menu={menu} /> : ''}
+              </div>
             </div>
           </div>
           <div className="flex flex-col w-full text-right dashed-line">

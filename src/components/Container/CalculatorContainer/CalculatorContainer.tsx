@@ -1,4 +1,5 @@
 import { Gifticon, Menu } from '@prisma/client';
+import Image from 'next/image';
 import Button from '../../Button';
 
 interface CalculatorContainerProps {
@@ -18,7 +19,14 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
 
   return (
     <div className="flex justify-between px-2 pt-4">
-      <div className="border border-coffee-400 w-16 h-16"> </div>
+      <div className="border border-coffee-400 w-16 h-16">
+        <Image
+          src={(type === 'menu' ? menu?.imgPath : gifticon?.imgPath) || ''}
+          alt={type === 'menu' ? menu?.name : gifticon?.name}
+          width={64}
+          height={64}
+        />
+      </div>
       <div className="flex flex-col items-end justify-between w-3/4 space-y-2">
         <div className="text-coffee-400 font-bold">
           {type === 'menu' ? menu?.name : gifticon?.name}

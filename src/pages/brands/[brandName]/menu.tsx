@@ -29,6 +29,7 @@ const Menu: React.FC = () => {
             ? menuData.menus.map((menu) => (
                 <MenuContainer
                   key={menu.id}
+                  imgPath={menu.imgPath || ''}
                   name={menu.name}
                   price={menu.price}
                 />

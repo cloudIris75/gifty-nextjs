@@ -24,6 +24,8 @@ interface MenuSelectProps {
   setGifticonName?: Dispatch<SetStateAction<string>>;
   menuData?: MenuResponse;
   gifticonData?: GifticonResponse;
+  setCategory?: Dispatch<SetStateAction<string>>;
+  setSort?: Dispatch<SetStateAction<string>>;
 }
 
 const MenuSelect: React.FC<MenuSelectProps> = ({
@@ -33,9 +35,11 @@ const MenuSelect: React.FC<MenuSelectProps> = ({
   setGifticonName,
   menuData,
   gifticonData,
+  setCategory,
+  setSort,
 }) => {
-  const [menus, setMenus] = useState<Menu[]>();
-  const [gifticons, setGifticons] = useState<Gifticon[]>();
+  const [menuOptions, setMenuOptions] = useState<Menu[]>();
+  const [gifticonOptions, setGifticonOptions] = useState<Gifticon[]>();
 
   const ascendingName = (a: Menu | Gifticon, b: Menu | Gifticon) => {
     if (a.name > b.name) {
@@ -48,35 +52,45 @@ const MenuSelect: React.FC<MenuSelectProps> = ({
   };
 
   useEffect(() => {
-    if (type === 'menu' && menuData) {
+    if (menuData && type === 'menu') {
       const sortedMenu = menuData.menus.sort((a, b) => ascendingName(a, b));
-      setMenus(sortedMenu);
+      setMenuOptions(sortedMenu);
     } else if (type === 'gifticon' && gifticonData) {
       const sortedGifticon = gifticonData.gifticons.sort((a, b) =>
         ascendingName(a, b)
       );
-      setGifticons(sortedGifticon);
+      setGifticonOptions(sortedGifticon);
     }
-  }, [type, menuData, setMenus, gifticonData, setGifticons]);
+  }, [type, menuData, setMenuOptions, gifticonData, setGifticonOptions]);
 
-  const onCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const onOptionCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (menuData) {
-      const target = e.currentTarget.value;
-      if (target === 'drink') {
+      const category = e.currentTarget.value;
+      if (category === 'drink') {
         const drinkMenu = menuData.menus
           .filter((menu) => menu.category === '음료')
           .sort((a, b) => ascendingName(a, b));
-        setMenus(drinkMenu);
-      } else if (target === 'food') {
+        setMenuOptions(drinkMenu);
+      } else if (category === 'food') {
         const foodMenu = menuData.menus
           .filter((menu) => menu.category === '푸드')
           .sort((a, b) => ascendingName(a, b));
-        setMenus(foodMenu);
+        setMenuOptions(foodMenu);
       } else {
         const allMenu = menuData.menus.sort((a, b) => ascendingName(a, b));
-        setMenus(allMenu);
+        setMenuOptions(allMenu);
       }
     }
+  };
+
+  const onMenuCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const category = e.currentTarget.value;
+    if (setCategory) setCategory(category);
+  };
+
+  const onMenuSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const sort = e.currentTarget.value;
+    if (setSort) setSort(sort);
   };
 
   return (
@@ -88,7 +102,11 @@ const MenuSelect: React.FC<MenuSelectProps> = ({
           required
           defaultValue="category"
           className="select w-20"
-          onChange={onCategoryChange}
+          onChange={
+            page === 'calculator'
+              ? onOptionCategoryChange
+              : onMenuCategoryChange
+          }
         >
           <option value="all">전체</option>
           <option value="drink">음료</option>
@@ -115,12 +133,12 @@ const MenuSelect: React.FC<MenuSelectProps> = ({
             {type === 'menu' ? '메뉴' : '기프티콘'}
           </option>
           {type === 'menu'
-            ? menus?.map((menu) => (
+            ? menuOptions?.map((menu) => (
                 <option key={menu.id} value={menu.name}>
                   {menu.name}
                 </option>
               ))
-            : gifticons?.map((gifticon) => (
+            : gifticonOptions?.map((gifticon) => (
                 <option key={gifticon.id} value={gifticon.name}>
                   {gifticon.name}
                 </option>
@@ -133,10 +151,8 @@ const MenuSelect: React.FC<MenuSelectProps> = ({
           required
           defaultValue="sort"
           className="select"
+          onChange={onMenuSortChange}
         >
-          <option value="sort" disabled>
-            정렬
-          </option>
           <option value="name">이름순</option>
           <option value="descending">가격높은순</option>
           <option value="ascending">가격낮은순</option>

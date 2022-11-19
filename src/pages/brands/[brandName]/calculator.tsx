@@ -24,7 +24,10 @@ const Calculator: React.FC = () => {
   const [gifticonName, setGifticonName] = useState('');
   const [menuName, setMenuName] = useState('');
   const [gifticon, setGifticon] = useState<Gifticon>();
-  const [menu, setMenu] = useState<Menu>();
+  const [menu1, setMenu1] = useState<Menu>();
+  const [number1, setNumber1] = useState(1);
+  const [result, setResult] = useState(0);
+  const [change, setChange] = useState(0);
   const { data: gifticonData } = useSWR<GifticonResponse>(
     '/api/gifticons',
     fetcher
@@ -43,9 +46,18 @@ const Calculator: React.FC = () => {
   useEffect(() => {
     if (menuData && menuName) {
       const selectedMenu = menuData.menus.find((e) => e.name === menuName);
-      setMenu(selectedMenu);
+      setMenu1(selectedMenu);
     }
-  }, [menuData, menuName, setMenu]);
+  }, [menuData, menuName, setMenu1]);
+
+  useEffect(() => {
+    if (gifticon && menu1) {
+      const resultPrice = menu1.price * number1;
+      const changePrice = gifticon.price - resultPrice;
+      setResult(resultPrice);
+      setChange(changePrice);
+    }
+  }, [gifticon, menu1, number1, setResult, setChange]);
 
   const onSubtractButtonClick = () => {};
 
@@ -89,21 +101,43 @@ const Calculator: React.FC = () => {
             <div className="flex flex-col space-y-8">
               <div className="flex flex-col items-between justify-center">
                 <MenuSelect setMenuName={setMenuName} menuData={menuData} />
-                {menu ? <CalculatorContainer menu={menu} /> : ''}
+                {menu1 ? (
+                  <CalculatorContainer
+                    menu={menu1}
+                    number={number1}
+                    setNumber={setNumber1}
+                  />
+                ) : (
+                  ''
+                )}
               </div>
             </div>
           </div>
           <div className="flex flex-col w-full text-right dashed-line">
             <div className="flex justify-between font-bold text-lg mb-2">
               <p className="text-coffee-400">결제금액</p>
-              <p className="text-coffee-400">n0,000원</p>
+              <p className="text-coffee-400">{result.toLocaleString()}원</p>
             </div>
-            <p className="text-coffee-400 text-sm">
-              기프티콘 가격보다 n00원 부족해요!
-            </p>
-            <p className="text-coffee-400 text-sm">
-              n00원어치 추가 선택해 주세요.
-            </p>
+            {change > 0 ? (
+              <>
+                <p className="text-coffee-400 text-sm">
+                  기프티콘 가격보다 {change.toLocaleString()}원 부족해요!
+                </p>
+                <p className="text-coffee-400 text-sm">
+                  {change.toLocaleString()}원어치 추가 선택해 주세요.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-coffee-400 text-sm">
+                  기프티콘 가격보다 {Math.abs(change).toLocaleString()}원
+                  많아요!
+                </p>
+                <p className="text-coffee-400 text-sm">
+                  {Math.abs(change).toLocaleString()}원 차액 결제해 주세요.
+                </p>
+              </>
+            )}
           </div>
         </div>
         <div className="flex flex-col space-y-4">

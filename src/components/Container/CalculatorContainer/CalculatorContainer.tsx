@@ -1,21 +1,36 @@
 import { Gifticon, Menu } from '@prisma/client';
 import Image from 'next/image';
+import { Dispatch, SetStateAction } from 'react';
 import Button from '../../Button';
 
 interface CalculatorContainerProps {
   type?: 'gifticon' | 'menu';
   gifticon?: Gifticon;
   menu?: Menu;
+  number?: number;
+  setNumber?: Dispatch<SetStateAction<number>>;
 }
 
 const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
   type = 'menu',
   gifticon,
   menu,
+  number = 1,
+  setNumber,
 }) => {
-  const onSubtractButtonClick = () => {};
+  const onSubtractButtonClick = () => {
+    if (number && number > 1) {
+      const substractedNumber = number - 1;
+      if (setNumber) setNumber(substractedNumber);
+    }
+  };
 
-  const onAddButtonClick = () => {};
+  const onAddButtonClick = () => {
+    if (number && number < 5) {
+      const addedNumber = number + 1;
+      if (setNumber) setNumber(addedNumber);
+    }
+  };
 
   return (
     <div className="flex justify-between px-2 pt-4 space-x-4">
@@ -38,13 +53,13 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
         >
           <div className={`${type === 'menu' ? 'flex' : 'hidden'} space-x-2`}>
             <Button name="-" onclick={onSubtractButtonClick} classname="px-2" />
-            <div className="text-coffee-400">1</div>
+            <div className="text-coffee-400">{number}</div>
             <Button name="+" onclick={onAddButtonClick} classname="px-2" />
           </div>
           <div className="text-coffee-400">
             {type === 'menu'
-              ? menu?.price.toLocaleString()
-              : gifticon?.price.toLocaleString()}
+              ? (menu?.price! * number).toLocaleString()
+              : (gifticon?.price! * number).toLocaleString()}
             원
           </div>
         </div>

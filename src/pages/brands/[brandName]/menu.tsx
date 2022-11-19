@@ -40,17 +40,17 @@ const Menu: React.FC = () => {
         setCategorizedMenu(allMenu);
       }
     }
-  }, [menuData, category, setCategorizedMenu]);
+  }, [menuData, category, sort, setCategorizedMenu]);
 
   useEffect(() => {
     if (categorizedMenu) {
       if (sort === 'descending') {
         const descendingMenu = categorizedMenu.sort(
-          (a, b) => a.price - b.price
+          (a, b) => b.price - a.price
         );
         setSortedMenu(descendingMenu);
       } else if (sort === 'ascending') {
-        const ascendingMenu = categorizedMenu.sort((a, b) => b.price - a.price);
+        const ascendingMenu = categorizedMenu.sort((a, b) => a.price - b.price);
         setSortedMenu(ascendingMenu);
       } else {
         const nameMenu = categorizedMenu.sort((a, b) =>
@@ -60,8 +60,6 @@ const Menu: React.FC = () => {
       }
     }
   }, [categorizedMenu, sort, setSortedMenu]);
-
-  console.log(category, sort);
 
   return (
     <>

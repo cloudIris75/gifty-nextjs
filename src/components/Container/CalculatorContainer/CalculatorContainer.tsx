@@ -40,13 +40,17 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
 
   return (
     <div className="flex justify-between px-2 pt-4 space-x-4">
-      <div className="flex items-center justify-center border border-coffee-400 w-16 h-16">
-        <Image
-          src={(type === 'menu' ? menu?.imgPath : gifticon?.imgPath) || ''}
-          alt={type === 'menu' ? menu?.name : gifticon?.name}
-          width={64}
-          height={64}
-        />
+      <div className="flex items-center justify-center border border-coffee-400 bg-coffee-400 w-16 h-16">
+        {menu?.imgPath || gifticon?.imgPath ? (
+          <Image
+            src={(type === 'menu' ? menu?.imgPath : gifticon?.imgPath) || ''}
+            alt={type === 'menu' ? menu?.name : gifticon?.name}
+            width={64}
+            height={64}
+          />
+        ) : (
+          ''
+        )}
       </div>
       <div className="flex flex-col items-end justify-between w-3/4 space-y-2">
         <div className="text-coffee-400 font-bold">

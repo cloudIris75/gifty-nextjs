@@ -8,7 +8,7 @@ interface CalculatorContainerProps {
   gifticon?: Gifticon;
   menu?: Menu;
   number?: number;
-  setNumber?: Dispatch<SetStateAction<number>>;
+  setNumbers?: Dispatch<SetStateAction<number[]>>;
 }
 
 const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
@@ -16,19 +16,25 @@ const CalculatorContainer: React.FC<CalculatorContainerProps> = ({
   gifticon,
   menu,
   number = 1,
-  setNumber,
+  setNumbers,
 }) => {
   const onSubtractButtonClick = () => {
     if (number && number > 1) {
       const substractedNumber = number - 1;
-      if (setNumber) setNumber(substractedNumber);
+      if (setNumbers) {
+        const numbers = [substractedNumber];
+        setNumbers(numbers);
+      }
     }
   };
 
   const onAddButtonClick = () => {
     if (number && number < 5) {
       const addedNumber = number + 1;
-      if (setNumber) setNumber(addedNumber);
+      if (setNumbers) {
+        const numbers = [addedNumber];
+        setNumbers(numbers);
+      }
     }
   };
 

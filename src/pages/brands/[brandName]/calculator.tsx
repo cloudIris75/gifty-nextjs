@@ -24,8 +24,8 @@ const Calculator: React.FC = () => {
   const [gifticonName, setGifticonName] = useState('');
   const [menuName, setMenuName] = useState('');
   const [gifticon, setGifticon] = useState<Gifticon>();
-  const [menu1, setMenu1] = useState<Menu>();
-  const [number1, setNumber1] = useState(1);
+  const [menus, setMenus] = useState<Menu[]>();
+  const [numbers, setNumbers] = useState<number[]>([1]);
   const [result, setResult] = useState(0);
   const [change, setChange] = useState(0);
   const { data: gifticonData } = useSWR<GifticonResponse>(
@@ -41,23 +41,24 @@ const Calculator: React.FC = () => {
       );
       setGifticon(selectedGifticon);
     }
-  }, [gifticonData, gifticonName, setGifticon]);
+  }, [gifticonData, gifticonName]);
 
   useEffect(() => {
     if (menuData && menuName) {
       const selectedMenu = menuData.menus.find((e) => e.name === menuName);
-      setMenu1(selectedMenu);
+      const menus = [selectedMenu] as Menu[];
+      setMenus(menus);
     }
-  }, [menuData, menuName, setMenu1]);
+  }, [menuData, menuName]);
 
   useEffect(() => {
-    if (gifticon && menu1) {
-      const resultPrice = menu1.price * number1;
+    if (gifticon && menus) {
+      const resultPrice = menus[0].price * numbers[0];
       const changePrice = gifticon.price - resultPrice;
       setResult(resultPrice);
       setChange(changePrice);
     }
-  }, [gifticon, menu1, number1, setResult, setChange]);
+  }, [gifticon, menus, numbers]);
 
   const onSubtractButtonClick = () => {};
 
@@ -101,11 +102,11 @@ const Calculator: React.FC = () => {
             <div className="flex flex-col space-y-8">
               <div className="flex flex-col items-between justify-center">
                 <MenuSelect setMenuName={setMenuName} menuData={menuData} />
-                {menu1 ? (
+                {menus ? (
                   <CalculatorContainer
-                    menu={menu1}
-                    number={number1}
-                    setNumber={setNumber1}
+                    menu={menus[0]}
+                    number={numbers[0]}
+                    setNumbers={setNumbers}
                   />
                 ) : (
                   ''
